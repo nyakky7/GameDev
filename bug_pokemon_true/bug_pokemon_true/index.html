@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>ばぐもん</title>
+  <link rel="stylesheet" href="style.css">
+  <script defer src="script.js"></script>
+  <style>
+    #message {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 48%;
+    text-align: center;
+    color: #222;
+    font-size: 24px;
+    font-weight: bold;
+    z-index: 9999;
+    background: white;           /* 白背景 */
+    border: 2px solid black;     /* 黒い外枠 */
+    box-sizing: border-box;
+    padding: 12px 0;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    display: none;
+    margin: 0 auto;
+  }
+  </style>
+</head>
+<body>
+  <!-- イベント画像（通常時） -->
+  
+<img class="event-seq" id="event-img-1" src="assets/img/niconeko.png" style="display: none;">
+  <img class="event-seq" id="event-img-2" src="assets/img/heionneko.png" style="display: none;">
+  <img class="event-seq" id="event-img-3" src="assets/img/kanasiineko.jpg" style="display: none;">
+  <img class="event-seq" id="event-img-4" src="assets/img/okoneko.jpg" style="display: none;">
+
+  <!-- マップ探索画面 -->
+  <div id="explore-screen">
+    <canvas id="game-canvas" width="480" height="480"></canvas>
+    <div id="fade-overlay"></div>
+  </div>
+
+  <!-- 戦闘画面 -->
+<div id="battle-screen" class="hidden">
+  <div id="battleArea">
+    <div id="enemyArea" class="character">
+      <div class="status">てき HP: <span id="enemyHp">20</span></div>
+      <img id="enemy-monster-img" src="assets/img/monster/enemyA.png" alt="てき">
+    </div>
+    <div id="playerArea" class="character">
+      <div class="status">みかた HP: <span id="playerHp">20</span></div>
+      <img id="player-monster-img" src="assets/img/monster/playerA.png" alt="みかた">
+    </div>
+  </div>
+    <div id="uiArea">
+      <div id="log"></div>
+      <div id="command">
+      </div>
+    </div>
+  </div>
+  <div id="message"></div>
+</body>
+</html>

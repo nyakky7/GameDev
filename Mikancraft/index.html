@@ -1,0 +1,38 @@
+
+<html lang="en">
+<head>
+    <title>Minecraft</title>
+    <meta name="viewport"
+          content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height"/>
+    <link rel="shortcut icon" href="src/resources/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="style.css"/>
+</head>
+
+<body>
+
+<div id="background" class="fullscreen"></div>
+
+<div id="content">
+    <div id="canvas-container" class="fullscreen"></div>
+</div>
+
+<!-- ✅ 修正済み：ID付きボタン -->
+<div style="position: absolute; top: 10px; left: 10px; z-index: 999;">
+  <button id="saveBtn">💾 セーブ</button>
+  <input type="file" id="loadWorldFile" accept=".json">
+
+</div>
+
+</body>
+
+<!-- ライブラリ -->
+<script type="module" src="libraries/pako.es5.min.js"></script>
+<script type="module" src="libraries/aes.js"></script>
+<script type="module" src="libraries/asn1.js"></script>
+<script type="module" src="libraries/bigint-mod-arith.js"></script>
+<script type="module" src="libraries/sha1.min.js"></script>
+
+<!-- ゲーム起動 -->
+<script type="module" src="src/js/Start.js"></script>
+
+</html>

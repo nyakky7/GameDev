@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ドッカン洗車デラックス</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="layout">
+      <header class="hud">
+        <div class="hud__item">
+          <span class="hud__label">スコア</span>
+          <span id="score" class="hud__value">0</span>
+        </div>
+        <div class="hud__item hud__meter">
+          <span class="hud__label">タイム</span>
+          <div class="meter">
+            <span id="time-fill" class="meter__fill"></span>
+          </div>
+        </div>
+        <div class="hud__item hud__meter">
+          <span class="hud__label">ドッカンゲージ</span>
+          <div class="meter meter--dokkan">
+            <span id="dokkan-fill" class="meter__fill"></span>
+          </div>
+        </div>
+        <div class="hud__item">
+          <span class="hud__label">連続洗浄</span>
+          <span id="combo" class="hud__value">0</span>
+        </div>
+      </header>
+
+      <section class="stage">
+        <canvas id="game" width="960" height="540" aria-label="ドッカン洗車デラックスのプレイフィールド"></canvas>
+        <div id="overlay" class="overlay">
+          <div class="overlay__panel" id="title-panel">
+            <h1>ドッカン洗車デラックス</h1>
+            <p>
+              強力洗浄スプラッシュで汚れを吹き飛ばせ！<br />
+              マウスまたはタッチで水を噴射、ブラシ洗浄でコンボを繋げて
+              ドッカンモードを発動しよう。
+            </p>
+            <button id="start-button" type="button" class="btn">スタート！</button>
+          </div>
+          <div class="overlay__panel" id="result-panel" hidden>
+            <h2 id="result-title">クリア！</h2>
+            <p id="result-message"></p>
+            <button id="retry-button" type="button" class="btn">もう一度</button>
+          </div>
+        </div>
+      </section>
+
+      <footer class="help">
+        <p>
+          <strong>操作:</strong> マウスまたは指でドラッグして噴射。<br />
+          長押しで水圧アップ。素早く汚れを落とすとコンボが続き、ゲージがMAXになると
+          <span class="highlight">ドッカンモード</span>が発動！
+        </p>
+      </footer>
+    </main>
+
+    <script src="script.js" type="module"></script>
+  </body>
+</html>

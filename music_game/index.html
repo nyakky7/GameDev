@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>リズムゲーム</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- 背景動画 -->
+  <video id="bgVideo" playsinline muted>
+    <source src="sheep.mp4" type="video/mp4">
+  </video>
+
+  <!-- カウントダウン -->
+  <div id="countdown" style="display:none; font-size:3em; text-align:center; margin:20px;">3</div>
+
+  <!-- スコア・コンボ・最大コンボのまとめ表示 -->
+  <div id="infoWrapper">
+    <div id="comboDisplay">Combo: 0</div>
+    <div id="scoreDisplay">Score: 0</div>
+    <div id="maxComboDisplay">Max Combo: 0</div>
+  </div>
+
+  <!-- ゲームエリア -->
+  <div id="game">
+    <div id="judgeLine"></div>
+
+    <div class="lane-container">
+      <div class="lane lane0" id="lane0"></div>
+      <div class="label">Z</div>
+    </div>
+    <div class="lane-container">
+      <div class="lane lane1" id="lane1"></div>
+      <div class="label">X</div>
+    </div>
+    <div class="lane-container">
+      <div class="lane lane2" id="lane2"></div>
+      <div class="label">C</div>
+    </div>
+    <div class="lane-container">
+      <div class="lane lane3" id="lane3"></div>
+      <div class="label">V</div>
+    </div>
+  </div>
+
+  <!-- 判定表示用 -->
+  <div id="judgeInfo">
+    PERFECT: <span class="perfect">青</span><br>
+    GOOD: <span class="good">緑</span><br>
+    BAD: <span class="bad">黄</span><br>
+    MISS: <span class="miss">赤</span><br>
+  </div>
+
+  <!-- 右上判定表示用 -->
+  <div id="judgeInfo">
+    <span class="perfect">PERFECT:</span> <span id="perfectCount" class="perfect">0</span><br>
+    <span class="good">GOOD:</span> <span id="goodCount" class="good">0</span><br>
+    <span class="bad">BAD:</span> <span id="badCount" class="bad">0</span><br>
+    <span class="miss">MISS:</span> <span id="missCount" class="miss">0</span><br>
+  </div>
+
+  <!-- BGMとスクリプト -->
+  <audio id="bgm" src="game.wav" preload="auto"></audio>
+  <script src="script.js"></script>
+
+  <script>
+    const video = document.getElementById('bgVideo');
+    video.addEventListener('ended', () => {
+      video.pause();
+      video.currentTime = video.duration;
+    });
+  </script>
+</body>
+</html>

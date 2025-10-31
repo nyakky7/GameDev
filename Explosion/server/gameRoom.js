@@ -180,7 +180,7 @@ export class GameRoom {
     this.matchOver = false;
     this.phase = "active";
     this.readyPlayers.clear();
-    this.resetPaintField(); // ← 新しい試合の開始で塗りをリセット
+    this.resetPaintField(); // 新しい試合の開始で塗りをリセット
     this.matchStartTime = Date.now();
     this.players.forEach((player) => {
       this.send(player.id, { type: "skillConsumed" });
@@ -492,7 +492,7 @@ export class GameRoom {
     if (!this.bullets.has(id)) return;
     this.bullets.delete(id);
     this.applyPaint(bullet.owner, bullet.x, bullet.y, PAINT_RADIUS_GRENADE);
-    const damage = 34;
+    const damage = 25;
     this.players.forEach((player) => {
       if (player.id === bullet.owner || player.hp <= 0) return;
       const dist = Math.hypot(player.x - bullet.x, player.y - bullet.y);
@@ -555,16 +555,9 @@ export class GameRoom {
   }
 
   recordPaintPatch(ownerId, x, y, radius) {
-    this.paintPatches.push({
-      id: uuid(),
-      owner: ownerId,
-      x: round(x),
-      y: round(y),
-      radius: round(radius),
-      createdAt: Date.now(),
-    });
-    // ★ 試合終了まで可視パッチは捨てない（間引き削除をしない）
-    // if (this.paintPatches.length > PAINT_PATCH_LIMIT) { ... } を削除
+    // タイル描画に移行：可視パッチは使わないので蓄積しない
+    // もし試合中エフェクトを残したければ、ここで push して serialize でも送る
+    return;
   }
 
   resetPaintField() {
@@ -595,14 +588,14 @@ export class GameRoom {
         }
 
         if (bullet.type === "homing") {
-          player.hp = Math.max(0, player.hp - 26);
+          player.hp = Math.max(0, player.hp - 15);
           this.applyPaint(bullet.owner, bullet.x, bullet.y, PAINT_RADIUS_HOMING);
           this.bullets.delete(id);
           break;
         }
 
         const owner = this.players.get(bullet.owner);
-        const damage = owner?.isSkillActive ? 35 : 20;
+        const damage = owner?.isSkillActive ? 25 : 10;
         player.hp = Math.max(0, player.hp - damage);
         this.bullets.delete(id);
         break;
@@ -640,7 +633,7 @@ export class GameRoom {
     });
     this.broadcast({ type: "state", payload: this.serialize() });
     this.broadcastMatchStatus();
-    // ※ ここでは塗りは消さない。次の試合開始（beginMatch/prepareLobby）でリセット
+    // ※ 塗りは消さない。次の試合開始（beginMatch/prepareLobby）でリセット
   }
 
   calculateResults() {
@@ -694,8 +687,11 @@ export class GameRoom {
         type: bullet.type,
       })),
       paint: {
-        patches: this.paintPatches.slice(),
+        // タイル描画へ移行：パッチは送らない（軽量化）
+        patches: [],
         stats: this.getPaintStats(),
+        // ★ 追加：セルの所有者IDをそのまま送る（null / playerId）
+        grid: this.paintGrid,
       },
       obstacles: this.obstacles.map((obstacle) => ({
         x: round(obstacle.x),
